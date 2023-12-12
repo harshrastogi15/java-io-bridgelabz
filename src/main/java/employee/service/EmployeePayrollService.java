@@ -4,6 +4,7 @@ package employee.service;
 import employee.utility.Employee;
 
 import java.io.*;
+import java.util.Scanner;
 
 public class EmployeePayrollService {
     /**
@@ -30,6 +31,7 @@ public class EmployeePayrollService {
             System.out.println("Salary: " + employee.getSalary());
 
             writePayrollToFile(employee);
+            countEntriesFile();
         } catch (IOException e) {
             System.out.println("Console error");
         }
@@ -44,12 +46,36 @@ public class EmployeePayrollService {
      */
     public void writePayrollToFile(Employee employee){
         try {
-            FileWriter fileReader = new FileWriter("payroll.txt",true);
-            fileReader.write(employee.getId() + ", " +employee.getName() + ", " + employee.getSalary() + '\n');
-            fileReader.close();
+            FileWriter fileWriter = new FileWriter("file\\payroll.txt",true);
+            fileWriter.write(employee.getId() + ", " +employee.getName() + ", " + employee.getSalary() + '\n');
+            fileWriter.close();
         }catch (IOException e) {
             System.out.println(e);
             System.out.println("File Not Found");
         }
     }
+
+
+    /**
+     * UC-5
+     * count entries in file
+     */
+    public void countEntriesFile(){
+        try {
+            File myObj = new File("file\\payroll.txt");
+            Scanner read = new Scanner(myObj);
+            int entries=0;
+            while (read.hasNextLine()) {
+                String data = read.nextLine();
+                System.out.println(data);
+                entries ++;
+            }
+
+            System.out.println("Total Entries in file: "+ entries);
+            read.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+        }
+    }
+
 }
