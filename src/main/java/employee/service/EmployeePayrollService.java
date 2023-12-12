@@ -3,9 +3,7 @@ package employee.service;
 
 import employee.utility.Employee;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 
 public class EmployeePayrollService {
     /**
@@ -30,8 +28,28 @@ public class EmployeePayrollService {
             System.out.println("ID: " + employee.getId());
             System.out.println("Name: " + employee.getName());
             System.out.println("Salary: " + employee.getSalary());
+
+            writePayrollToFile(employee);
         } catch (IOException e) {
             System.out.println("Console error");
+        }
+    }
+
+
+    /**
+     * UC-4
+     * Method to write payroll into the file
+     *
+     * @param employee
+     */
+    public void writePayrollToFile(Employee employee){
+        try {
+            FileWriter fileReader = new FileWriter("payroll.txt",true);
+            fileReader.write(employee.getId() + ", " +employee.getName() + ", " + employee.getSalary() + '\n');
+            fileReader.close();
+        }catch (IOException e) {
+            System.out.println(e);
+            System.out.println("File Not Found");
         }
     }
 }

@@ -8,7 +8,7 @@ public class FileOperations {
 
     public static void main(String[] args) {
 
-        String filePath = "test.txt";
+        String filePath = "temp.txt";
         String directoryPath = "testDirectory";
 
         try {
